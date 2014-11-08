@@ -7,25 +7,28 @@ package demoball;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Label;
+import javafx.scene.shape.Circle;
 
 /**
  *
- * @author Kargathia
+ * @author Bob Steers
  */
 public class AnimationBallTimer extends AnimationTimer
 {
     Label myLabel;
+    Circle ball;
     long prev;
     
-    public AnimationBallTimer(Label label)
+    public AnimationBallTimer(Label label, Circle ball)
     {
-        myLabel = label;
+        this.ball = ball;
+        this.myLabel = label;
     }
 
     
     /**
      * Demonstrates use of an animationtimer, set to update once every 
-     * 100 000 000 nanoseconds, or every 100 ms.
+     * 100 000 000 nanoseconds = every 100 ms.
      * @param now 
      */
     @Override
@@ -33,7 +36,9 @@ public class AnimationBallTimer extends AnimationTimer
     {
         if(now - prev > (long) 100000000)
         {
-            myLabel.setText(String.valueOf(now));
+            myLabel.setText("X: " + this.ball.centerXProperty().get() 
+                    + System.getProperty("line.separator") // the safest way to insert a new line on all operating systems
+                    + "Y: " + this.ball.centerYProperty().get());
             prev = now;
         }
     }

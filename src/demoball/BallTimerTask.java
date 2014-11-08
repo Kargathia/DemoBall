@@ -10,17 +10,27 @@ import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 
 /**
  *
- * @author Kargathia
+ * @author Bob Steers
  */
-public class BallTimer extends TimerTask
+public class BallTimerTask extends TimerTask
 {
 
     private DoubleProperty xPos, yPos, radius, sceneWidth, sceneHeight;
     private double xMovement, yMovement;
+    private boolean isPaused;
+    
+    /**
+     * Toggles paused status. 
+     * @return new paused status
+     */
+    public boolean setPaused()
+    {
+        this.isPaused = !isPaused;
+        return this.isPaused;
+    }
 
     /**
      * Instantiates a new BallTimer, with three properties to govern the given
@@ -28,7 +38,7 @@ public class BallTimer extends TimerTask
      *
      * @param ball
      */
-    public BallTimer(Circle ball)
+    public BallTimerTask(Circle ball)
     {
         // initialises the properties controlling the x/y coordinates of the ball on the ball's coordinates
         xPos = new SimpleDoubleProperty(ball.getCenterX());
@@ -55,11 +65,19 @@ public class BallTimer extends TimerTask
         // this value will flip between -10 and +10, depending on whether the ball should go right/down or left/up
         xMovement = 10;
         yMovement = 10;
+        
+        // sets isPaused to initial status of false
+        this.isPaused = false;
     }
 
     @Override
     public void run()
     {
+        if(isPaused)
+        {
+            return;
+        }
+        
         // reverse x bounce movement whenever the ball would cross the right border on its current course
         if (xMovement > 0 && xPos.get() + xMovement + radius.get() > sceneWidth.get())
         {
