@@ -77,7 +77,7 @@ public class DemoBallController extends DemoBallMain implements Initializable
             {
                 // schedules a new BallTimer as timertask. BallTimer is responsible for movement of given ball.
                 ballTask = new BallTimerTask(demoBall);
-                timer.scheduleAtFixedRate(ballTask, 100, 100);
+                timer.scheduleAtFixedRate(ballTask, 100, 10);
                 // Enables the pause button
                 btnPause.setDisable(false);
 

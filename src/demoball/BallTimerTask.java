@@ -63,8 +63,8 @@ public class BallTimerTask extends TimerTask
 
         // sets the default x/y distance the ball will change every time run() is called
         // this value will flip between -10 and +10, depending on whether the ball should go right/down or left/up
-        xMovement = 10;
-        yMovement = 10;
+        xMovement = 1;
+        yMovement = 1;
         
         // sets isPaused to initial status of false
         this.isPaused = false;
